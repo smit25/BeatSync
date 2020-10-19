@@ -1,0 +1,29 @@
+body{
+    background: 
+      linear-gradient(
+        rgba(22,22,22,0.989), 
+        rgba(22,22,22,0.95),
+        rgba(22,22,22,0.989)
+      ),url(https://d2c87l0yth4zbw.global.ssl.fastly.net/i/home/lifestyle-discover-lg.jpg),
+      center center fixed;
+    background-size: cover;
+     font-family: "Open Sans", sans-serif;
+  }
+  
+  #header{
+    width: 100%;
+    height: 150px;
+    border-bottom: 1px solid rgba(250, 250, 250, 0.1);
+  }
+  
+  .logo{
+    background-image: url(http://mhdnyc.splashthat.com/img/events/52537/assets/6274.spotify-logo-horizontal-white-rgb.png);
+    background-size: 200px;
+    background-repeat: no-repeat;
+    margin-left: -100px;
+    margin-top: 40px;
+    left: 50%;
+    position: absolute;
+    width: 200px;
+    height: 60px;
+  }
