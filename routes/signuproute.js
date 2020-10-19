@@ -1,6 +1,6 @@
 const express = require('express')
 const { check, validationResult } = require('express-validator')
-// const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 
@@ -37,9 +37,10 @@ router.post('/signup',
         username, email, password, today
       })
       console.log(user)
-      // const salt = await bcrypt.genSalt(10)
-      // user.password = await bcrypt.hash(password, salt)
-      console.log('....')
+
+      const salt = await bcrypt.genSalt(10)
+      user.password = await bcrypt.hash(password, salt)
+
       await user.save()
       console.log('...')
       const payload = {
@@ -50,7 +51,7 @@ router.post('/signup',
       }
 
       jwt.sign(
-        payload, 'jwtsecrettoken', { expiresIn: 10000 }, (err, token) => {
+        payload, 'justanotherasshole', { expiresIn: 10000 }, (err, token) => {
           if (err) throw err
           res.status(200).json({
             token
@@ -58,6 +59,8 @@ router.post('/signup',
           )
         }
       )
+
+      res.redirect('/home')
     } catch (err) {
       console.log(err.message)
       res.status(500).send('Saving Error')
@@ -67,3 +70,4 @@ router.post('/signup',
 )
 
 module.exports = router
+// module.exports = userCopy

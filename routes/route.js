@@ -1,3 +1,5 @@
+// const username = require('./signuproute')
+
 module.exports = (app) => {
   app.get('/', (req, res) => {
     res.render('login')
@@ -8,5 +10,9 @@ module.exports = (app) => {
   })
   app.get('/signup', (req, res) => {
     res.render('signup')
+  })
+
+  app.get('/home', (req, res) => {
+    res.render('home')
   })
 }
