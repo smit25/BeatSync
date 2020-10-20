@@ -1,0 +1,5 @@
+Client ID f6e2e07a48b742278079ce02f7f8df4f
+Client Secret 37175be48eb748c49b0c9c1f8e4c8d08
+scopes: user-read-currently-playing app-remote-control user-modify-playback-state
+https://accounts.spotify.com/authorize?client_id=f6e2e07a48b742278079ce02f7f8df4f&
+response_type=code&redirect_url=
