@@ -1,4 +1,5 @@
 // const username = require('./signuproute')
+// var auth = require('../middleware/auth')
 
 module.exports = (app) => {
   app.get('/', (req, res) => {

@@ -52,7 +52,7 @@ router.post(
           })
         }
       )
-      res.redirect('/home')
+      res.redirect('/spotifylogin')
     } catch (err) {
       console.error(err)
       res.status(500).json({

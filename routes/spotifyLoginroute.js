@@ -3,7 +3,7 @@ var querystring = require('querystring')
 
 var client_id = 'f6e2e07a48b742278079ce02f7f8df4f' // Your client id
 var client_secret = '37175be48eb748c49b0c9c1f8e4c8d08' // Your secret
-var redirect_uri = 'http://localhost:3000/home' // Your redirect uri
+var redirect_uri = 'http://localhost:3000/home/' // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -23,6 +23,9 @@ var generateRandomString = (length) => {
 var stateKey = 'spotify_auth_state'
 
 module.exports = (app) => {
+  app.get('/spotifylogin', (req, res) => {
+    res.render('spotifylogin')
+  })
   app.get('/login', (req, res) => {
     var state = generateRandomString(16)
     res.cookie(stateKey, state)
