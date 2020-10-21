@@ -3,7 +3,7 @@ var querystring = require('querystring')
 
 var client_id = 'f6e2e07a48b742278079ce02f7f8df4f' // Your client id
 var client_secret = '37175be48eb748c49b0c9c1f8e4c8d08' // Your secret
-var redirect_uri = 'http://localhost:3000/' // Your redirect uri
+var redirect_uri = 'http://localhost:3000/home' // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -85,7 +85,7 @@ module.exports = (app) => {
           })
 
           // We can also pass the token to the browser to make requests from there
-          res.redirect('home' +
+          res.redirect('spotifyLogin' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
