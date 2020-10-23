@@ -5,16 +5,20 @@ var cookieParser = require('cookie-parser')
 
 var mongoServer = require('./config/database')
 
+// Declaring the Routes
 var routes = require('./routes/route')
 var signin = require('./routes/signuproute')
 var signup = require('./routes/signinroute')
 var spotifyLogin = require('./routes/spotifyLoginroute')
-var me = require('./routes/me')
+var home = require('./routes/homeRoute')
+var socketio = require('./socket/socket')
+
 // Server
 mongoServer()
 
-// Initializing the Express framework
+// Initializing the express and socket server
 var app = express()
+// socketio(app)
 
 // Setting the template engine
 app.set('view engine', 'ejs')
@@ -30,9 +34,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Routing
 routes(app)
 spotifyLogin(app)
+app.use('/home', home)
 app.use('/', signin)
 app.use('/', signup)
-app.use('/', me)
+// app.use('/', me)
 
 const host = 3000 || process.send.PORT
 app.listen(host)
