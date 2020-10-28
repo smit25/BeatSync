@@ -36,6 +36,15 @@ router.post(
           message: 'Incorrect Password'
         })
       }
+      let userId = req.cookies['userId']
+      if (!userId) {
+        res.cookie('userId', user.id, { domain: 'localhost:3000' })
+        console.log(user.id)
+        console.log('Hey ' + req.cookies['userId'])
+        console.log('Cookie stored!')
+      } else {
+        console.log('userId cookie already present!')
+      }
 
       const payload = {
         user: {

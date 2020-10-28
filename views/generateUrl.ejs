@@ -6,8 +6,7 @@
     <body>
         <h2>Click on this button to generate Create Room</h2>
         <form id = "generateUrlForm" action ="/Room", method = "POST">
-            <input type ="text" name ="roomName" placeholder = "Led Zepellin Fanclub">
-            <button type = "submit"> Create Room</button>
+            <button type = "submit" onclick= "initroom()"> Create Room</button>
         </form>
            
             <h3>Share this URL with your friends</h3>
@@ -15,6 +14,10 @@
 
             </div>
             <script>
+                function initroom()
+                {
+                    
+                }
                 function makeid(length) {
                     var result           = '';
                     var characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -39,4 +42,3 @@
         
     </body>
 </html>
-

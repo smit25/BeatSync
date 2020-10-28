@@ -2,8 +2,17 @@ var express = require('express')
 const bodyParser = require('body-parser')
 var cors = require('cors')
 var cookieParser = require('cookie-parser')
+var http = require('http')
+const socketio = require('socket.io')
+const socketfile = require('./socket/socket')
 
 var mongoServer = require('./config/database')
+
+// Initializing the express and socket server
+var app = express()
+const server = http.createServer(app)
+const io = socketio(server)
+socketfile(io)
 
 // Declaring the Routes
 var routes = require('./routes/route')
@@ -11,14 +20,9 @@ var signin = require('./routes/signuproute')
 var signup = require('./routes/signinroute')
 var spotifyLogin = require('./routes/spotifyLoginroute')
 var home = require('./routes/homeRoute')
-var socketio = require('./socket/socket')
 
 // Server
 mongoServer()
-
-// Initializing the express and socket server
-var app = express()
-// socketio(app)
 
 // Setting the template engine
 app.set('view engine', 'ejs')

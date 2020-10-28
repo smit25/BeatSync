@@ -9,9 +9,4 @@ router.get('/joinRoom', (req, res) => {
   res.render('joinroom')
 })
 
-router.post('/Room', (req, res) => {
-  console.log('aaa')
-  res.redirect('Room')
-})
-
 module.exports = router

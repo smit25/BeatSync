@@ -1,5 +1,7 @@
 // const username = require('./signuproute')
 // var auth = require('../middleware/auth')
+const path = require('path')
+var appDir = path.dirname(require.main.filename)
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
@@ -13,7 +15,18 @@ module.exports = (app) => {
     res.render('signup')
   })
 
+  app.post('/Room', (req, res) => {
+    res.sendFile(path.join(appDir + '/public/socket.html'))
+  })
+
   app.get('/home', (req, res) => {
+    let userId = req.cookies['userId']
+    console.log(userId)
+    if (userId) {
+      console.log('userId: ' + userId)
+    } else {
+      console.log(`Cookie not found`)
+    }
     res.render('home')
   })
 }

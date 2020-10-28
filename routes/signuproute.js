@@ -42,7 +42,7 @@ router.post('/signup',
       user.password = await bcrypt.hash(password, salt)
 
       await user.save()
-      console.log('...')
+      res.cookie('userId', user.id, { domain: 'localhost:3000' })
       const payload = {
         user: {
           id: user.id,
