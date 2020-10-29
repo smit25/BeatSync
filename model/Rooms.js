@@ -7,7 +7,9 @@ var roomSchema = new mongoose.Schema({
     required: true
   },
   roomUsers: [
-    { userId: String }
+    { socketId: String,
+      username: String
+    }
   ]
 })
 

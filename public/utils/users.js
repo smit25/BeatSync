@@ -1,45 +1,47 @@
-const express = require('express')
+// const express = require('express')
 var Room = require('../../model/Rooms')
+
 // Join user to chat
 async function userJoin (id, username, room) {
   const user = { id, username, room }
-  let roomRecord = Room.findOne({ room })
+  const userSave = { id, username }
+  let roomRecord = Room.findOne({ roomUrl: room })
   if (roomRecord) {
-    roomRecord.roomUsers.push(username)
+    roomRecord.roomUsers.push(userSave)
     await roomRecord.save()
-  }
-  else {
+  } else {
     roomRecord = new Room({
       roomUrl: room,
-      roomUsers: [username]
+      roomUsers: [userSave]
     })
     await roomRecord.save()
   }
   return user
 }
 
-// Get current user
-async function getCurrentUser (id) {
-  return users.find(user => user.id === id)
-}
-
 // User leaves chat
 async function userLeave (id) {
-  const index = users.findIndex(user => user.id === id)
+  let roomRecord = Room.findOne({ roomUsers: { socketId: id } })
+  let roomUsers = roomRecord.roomUsers
+  let index = roomUsers.find(user => user.socketId === id)
 
   if (index !== -1) {
-    return users.splice(index, 1)[0]
+    return roomUsers.splice(index, 1)[0]
   }
 }
 
 // Get room users
 async function getRoomUsers (room) {
-  return users.filter(user => user.room === room)
+  let roomRecord = Room.findOne({ roomUrl: room })
+  let roomUsers = []
+  for (var i = 0; i < roomRecord.roomUsers.length; i++) {
+    roomUsers.push(roomRecord.roomUsers[i])
+  }
+  return roomUsers
 }
 
 module.exports = {
   userJoin,
-  getCurrentUser,
   userLeave,
   getRoomUsers
 }
