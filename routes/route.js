@@ -2,6 +2,7 @@
 // var auth = require('../middleware/auth')
 const path = require('path')
 var appDir = path.dirname(require.main.filename)
+const url = require('../public/js/main')
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
@@ -16,6 +17,8 @@ module.exports = (app) => {
   })
 
   app.post('/Room', (req, res) => {
+    console.log(url)
+
     res.sendFile(path.join(appDir + '/public/socket.html'))
   })
 

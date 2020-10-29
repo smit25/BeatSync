@@ -6,6 +6,7 @@ var http = require('http')
 const socketio = require('socket.io')
 const socketfile = require('./socket/socket')
 
+// initialising mongo server
 var mongoServer = require('./config/database')
 
 // Initializing the express and socket server
