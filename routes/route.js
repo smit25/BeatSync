@@ -29,9 +29,19 @@ module.exports = (app) => {
     res.render('signup')
   })
 
-  app.post('/Room', (req, res) => {
-    console.log(url)
+  app.get('/createRoom', (req, res) => {
     res.cookie('roomUrl', url, { domain: 'localhost:3000' })
+    console.log(url)
+    const testcookie = req.cookies['roomUrl']
+    console.log('HeySmit ' + testcookie)
+    res.sendFile(path.join(appDir + '/public/generateUrl.html'))
+  })
+
+  app.get('/joinRoom', (req, res) => {
+    res.render(path.join(appDir + '/public/joinroom.html'))
+  })
+
+  app.post('/Room', (req, res) => {
     res.sendFile(path.join(appDir + '/public/socket.html'))
   })
 

@@ -20,7 +20,6 @@ var routes = require('./routes/route')
 var signin = require('./routes/signuproute')
 var signup = require('./routes/signinroute')
 var spotifyLogin = require('./routes/spotifyLoginroute')
-var home = require('./routes/homeRoute')
 
 // Server
 mongoServer()
@@ -39,7 +38,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Routing
 routes(app)
 spotifyLogin(app)
-app.use('/home', home)
 app.use('/', signin)
 app.use('/', signup)
 // app.use('/', me)

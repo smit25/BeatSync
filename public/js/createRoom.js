@@ -2,6 +2,7 @@
 function createRoom () {
   const cookie = document.cookie
   const roomUrl = cookie['roomUrl']
+  console.log('hey' + roomUrl)
   try {
     console.log(roomUrl)
     var div = document.getElementById('addUrl')
