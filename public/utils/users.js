@@ -12,6 +12,7 @@ async function userJoin (id, username, room) {
   } else {
     roomRecord = new Room({
       roomUrl: room,
+      admin: id,
       roomUsers: [userSave]
     })
     await roomRecord.save()
