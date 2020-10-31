@@ -5,7 +5,9 @@ var appDir = path.dirname(require.main.filename)
 const url = makeid(6)
 
 var Room = require('../model/Rooms')
+
 function makeid (length) {
+  console.log('Count')
   var result = ''
   var characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
   var charactersLength = characters.length
@@ -31,7 +33,7 @@ module.exports = (app) => {
   })
 
   app.get('/room/:url', (req, res) => {
-    console.log(url + ' url')
+    console.log(req.params.url + ' urlget')
     res.sendFile(path.join(appDir + '/public/socket.html'))
   })
 
