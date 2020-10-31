@@ -1,11 +1,69 @@
-<html>
-    <head>
-        <title>Socket Test</title>
-    </head>
-    <body>
-        <h2>Room Html</h2>
-        <script src = "/socket.io/socket.io.js"></script>
-        <script src = "/socket.io-client"></script>
-        <script src = "js/main.js"></script>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Beat-Sync-Room-Func-Sample</title>
+  </head>
+  <body>
+    <header class="chat-header text-center">
+        <h1><i class="fas fa-smile"></i>Beatsync</h1>
+    </header>
+    <hr>
+    <div class="row container">
+
+        <div class="col-sm-9 text-center">
+            <main class="chat-main">
+                <div class="chat-sidebar">
+                  <h3><i class="fas fa-comments"></i> Song:</h3>
+                  <hr>
+                  <div class="container">
+                    <img class="img-fluid" src="https://picsum.photos/200/300" alt="Chania" width="120" height="120"> 
+                  </div>
+                  <hr>
+                  <h5 id="song-name">Name of song/Artist/wagera</h5>
+                  <a href="index.html" class="btn btn-success">Sync Everybody</a>
+                  <ul id="users"></ul>
+                </div>
+            </main>
+        </div>
+        <div class="col-sm-3">
+            <div class="chat-container">
+                
+                <main class="chat-main">
+                  <div class="chat-sidebar">
+                    <h3><i class="fas fa-comments"></i> Room Name:</h3>
+                    <hr>
+                    <h2 id="room-name"></h2>
+                    <h3><i class="fas fa-users"></i> Users</h3>
+                    <ul id="users"></ul>
+                  </div>
+                </main>
+              </div>
+              <a href="index.html" class="btn btn-danger text-center">Leave Room</a>
+        </div>
+      </div>
+      
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

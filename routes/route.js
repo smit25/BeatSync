@@ -4,6 +4,7 @@ const path = require('path')
 var appDir = path.dirname(require.main.filename)
 const url = makeid(6)
 
+var Room = require('../model/Rooms')
 function makeid (length) {
   var result = ''
   var characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
@@ -29,20 +30,26 @@ module.exports = (app) => {
     res.render('signup')
   })
 
-  app.get('/createRoom', (req, res) => {
-    res.cookie('roomUrl', url, { domain: 'localhost:3000' })
-    console.log(url)
-    const testcookie = req.cookies['roomUrl']
-    console.log('HeySmit ' + testcookie)
-    res.sendFile(path.join(appDir + '/public/generateUrl.html'))
-  })
-
-  app.get('/joinRoom', (req, res) => {
-    res.render(path.join(appDir + '/public/joinroom.html'))
-  })
-
-  app.post('/Room', (req, res) => {
+  app.get('/room/:url', (req, res) => {
+    console.log(url + ' url')
     res.sendFile(path.join(appDir + '/public/socket.html'))
+  })
+
+  app.post('/room/:url', (req, res) => {
+    const roomUrl = req.body['joinurl']
+    console.log(roomUrl)
+    try {
+      let room = Room.findOne({ roomUrl })
+      console.log('room: ' + room)
+      if (room == roomUrl) {
+        res.status(200).sendFile(path.join(appDir + '/public/socket.html'))
+      } else {
+        res.send('Room does not exist!')
+      }
+    } catch (err) {
+      console.log('Error fetching from database')
+      res.send('Error!')
+    }
   })
 
   app.get('/home', (req, res) => {

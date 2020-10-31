@@ -38,7 +38,7 @@ router.post(
       }
       let userId = req.cookies['userId']
       if (!userId) {
-        res.cookie('userId', user.id, { domain: 'localhost:3000' })
+        res.cookie('userId', user.id)
         console.log(user.id)
         console.log('Hey ' + req.cookies['userId'])
         console.log('Cookie stored!')

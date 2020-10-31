@@ -20,6 +20,7 @@ var routes = require('./routes/route')
 var signin = require('./routes/signuproute')
 var signup = require('./routes/signinroute')
 var spotifyLogin = require('./routes/spotifyLoginroute')
+var homeRoute = require('./routes/homeRoute')
 
 // Server
 mongoServer()
@@ -29,7 +30,7 @@ app.set('view engine', 'ejs')
 
 // Rendering static files and cookie parser
 app.use(express.static('./public'))
-app.use(cors()).use(cookieParser())
+app.use(cors({ origin: true, credentials: true })).use(cookieParser())
 
 // Initialising Body-Parser
 app.use(bodyParser.json())
@@ -38,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Routing
 routes(app)
 spotifyLogin(app)
+app.use('/', homeRoute)
 app.use('/', signin)
 app.use('/', signup)
 // app.use('/', me)

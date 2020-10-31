@@ -10,8 +10,20 @@ const { username, room } = Qs.parse(location.search, {
 
 const socket = io()
 const cookie = document.cookie
-const userId = cookie['userId']
-const room = cookie['roomUrl']
+console.log(cookie)
+function getCookiesMap (cookiesString) {
+  return cookiesString.split(';')
+    .map((cookieString) => {
+      return cookieString.trim().split('=')
+    })
+    .reduce((acc, curr) => {
+      acc[curr[0]] = curr[1]
+      return acc
+    }, {})
+}
+const cookies = getCookiesMap(cookie)
+const userId = cookies['userId']
+const room = cookies['roomUrl']
 
 // Join chatroom
 socket.emit('joinRoom', { userId, room })

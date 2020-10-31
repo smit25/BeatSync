@@ -5,10 +5,28 @@
     </head>
     <body>
         <h2>Join Room - Enter Room URL</h2>
-        <form action="/Room" method="POST"> 
+        <form id = "joinRoomForm" method="POST"> 
             <input type="text" name="joinurl"
                 placeholder="Enter your Room Key" required>  
             <button type="submit">Join Room</button> 
         </form> 
+        <script>
+            const cookie = document.cookie
+            console.log(cookie)
+            function getCookiesMap (cookiesString) {
+            return cookiesString.split(';')
+                .map((cookieString) => {
+                return cookieString.trim().split('=')
+                })
+                .reduce((acc, curr) => {
+                acc[curr[0]] = curr[1]
+                return acc
+             }, {})
+}
+const cookies = getCookiesMap(cookie)
+const roomUrl = cookies['roomUrl']
+            const form = document.getElementById('joinRoomForm')
+            form.action = '/room/' + roomUrl
+        </script>
     </body>
 </html>
