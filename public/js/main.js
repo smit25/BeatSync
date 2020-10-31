@@ -7,10 +7,12 @@ const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
 */
-import room from './createRoom'
+
 const socket = io()
 const cookie = document.cookie
 const userId = cookie['userId']
+const room = cookie['roomUrl']
+
 // Join chatroom
 socket.emit('joinRoom', { userId, room })
 
