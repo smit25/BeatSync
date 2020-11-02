@@ -11,6 +11,7 @@ const {
 
 module.exports = (io) => {
   io.on('connection', socket => {
+    console.log('socket works!')
     socket.on('joinRoom', async ({ userId, room }) => {
       const username = await User.findById(userId)
       const user = userJoin(socket.id, username, room)

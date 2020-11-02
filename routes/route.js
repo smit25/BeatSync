@@ -2,23 +2,8 @@
 // var auth = require('../middleware/auth')
 const path = require('path')
 var appDir = path.dirname(require.main.filename)
-const url = makeid(6)
 
 var Room = require('../model/Rooms')
-
-function makeid (length) {
-  console.log('Count')
-  var result = ''
-  var characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
-  var charactersLength = characters.length
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength))
-    if ((i + 1) % 3 === 0 && i !== 5) {
-      result += '-'
-    }
-  }
-  return result
-}
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
@@ -63,5 +48,9 @@ module.exports = (app) => {
       console.log(`Cookie not found`)
     }
     res.render('home')
+  })
+  app.get('/room/js/main.js', (req, res) => {
+    console.log('Sending main.js')
+    res.status(200).sendFile(path.join(appDir + '/public/js/main.js'))
   })
 }

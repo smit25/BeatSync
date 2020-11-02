@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const path = require('path')
 var appDir = path.dirname(require.main.filename)
-const url = makeid(6)
 
 function makeid (length) {
   var result = ''
@@ -18,6 +17,7 @@ function makeid (length) {
 }
 
 router.post('/createRoom', async (req, res, next) => {
+  const url = makeid(6)
   res.cookie('roomUrl', url, { httpOnly: false })
   console.log(url)
   console.log('Room cookie set')
