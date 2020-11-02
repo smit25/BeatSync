@@ -5,8 +5,9 @@ var Room = require('../../model/Rooms')
 async function userJoin (id, username, room) {
   const user = { id, username, room }
   const userSave = { id, username }
-  let roomRecord = Room.findOne({ roomUrl: room })
-  if (roomRecord) {
+  let roomRecord = await Room.findOne({ roomUrl: room })
+  console.log('userJoin ' + roomRecord)
+  if (roomRecord !== null) {
     roomRecord.roomUsers.push(userSave)
     await roomRecord.save()
   } else {
@@ -23,6 +24,7 @@ async function userJoin (id, username, room) {
 // User leaves chat
 async function userLeave (id) {
   let roomRecord = Room.findOne({ roomUsers: { socketId: id } })
+  console.log('roomRecord: ' + roomRecord)
   let roomUsers = roomRecord.roomUsers
   let index = roomUsers.find(user => user.socketId === id)
 
