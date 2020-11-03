@@ -8,8 +8,10 @@ var roomSchema = new mongoose.Schema({
   },
   adminId: String,
   roomUsers: [
-      {
-      username: String}
+    {
+      socketId: String,
+      username: String
+    }
   ]
 })
 

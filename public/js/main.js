@@ -2,12 +2,6 @@
 const roomName = document.getElementById('room-name')
 const userList = document.getElementById('users')
 
-/*// Get username and room from URL
-const { username, room } = Qs.parse(location.search, {
-  ignoreQueryPrefix: true
-});
-*/
-
 const socket = io()
 const cookie = document.cookie
 console.log(cookie)
@@ -31,8 +25,8 @@ socket.emit('joinRoom', { userId, room })
 // Get room and users on the page dynamically
 socket.on('roomUsers', ({ room, users }) => {
   console.log(room)
-  console.log(users[0])
-  outputRoomName (room)
+  console.log(users)
+  outputRoomName(room)
 })
 
 // Message from server
@@ -42,10 +36,10 @@ socket.on('message', message => {
 
 // Add room name to our page
 function outputRoomName (room) {
-  roomName.innerText = room;
+  roomName.innerText = room
 }
 
 // Add users to our page
 function outputUsers (users) {
-  console.log(users[0])
+  console.log('users here' + users[0])
 }
