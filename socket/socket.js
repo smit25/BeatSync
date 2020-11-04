@@ -1,17 +1,16 @@
-// const path = require('path')
-//  const http = require('http')
-// const express = require('express')
 var User = require('../model/Users')
 var Room = require('../model/Rooms')
 const {
-  // getCurrentUser,
   userLeave,
-  getRoomUsers
-} = require('../public/utils/users')
+  getRoomUsers,
+  addUser
+} = require('../public/utils/socketFunc')
 
+// Operate on socket.io
 module.exports = (io) => {
   io.on('connection', socket => {
     console.log('socket works!')
+
     socket.on('joinRoom', async ({ userId, room }) => {
       const userjson = await User.findById(userId)
       const username = userjson.username
@@ -20,15 +19,15 @@ module.exports = (io) => {
       let id = socket.id
 
       const userSave = { socketId: id, username: username }
-      console.log('in user.js ' + userSave)
 
       let roomRecord = await Room.findOne({ roomUrl: room })
       console.log('roomFound ' + roomRecord)
-
+      // Add new user to room
       if (roomRecord !== null) {
         roomRecord.roomUsers.push(userSave)
         await roomRecord.save()
       } else {
+        // Make new Room
         roomRecord = new Room({
           roomUrl: room,
           adminId: id,
@@ -38,11 +37,14 @@ module.exports = (io) => {
         console.log(roomRecord)
       }
 
-      console.log(room)
       socket.join(room)
 
       // initialize getRoomUsers
       let users = await getRoomUsers(room)
+
+      // add User to Schema
+      await addUser(id, room, username)
+
       // Welcome current user
       socket.emit('message', 'Welcome to BeatSync!')
 
@@ -54,7 +56,7 @@ module.exports = (io) => {
           `${username} has joined the room`)
 
       // Send users and room info
-      // var roomusers = getRoomUsers(room)
+
       io.to(room).emit('roomUsers', {
         room: room,
         users: users
@@ -64,7 +66,16 @@ module.exports = (io) => {
     // Runs when client disconnects
     socket.on('disconnect', async () => {
       const user = await userLeave(socket.id)
-      if (user) {
+      const leftUser = await Room.findOne({ roomUrl: user.room })
+      console.log('admin check: ' + leftUser.adminId)
+
+      // Destroy the room if admin leaves
+      if (leftUser.adminId === socket.id) {
+        io.of('/').in(user.room).clients((error, socketIds) => {
+          if (error) { throw error }
+          socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(user.room))
+        })
+      } else {
         console.log('leftUser ' + user)
         io.to(user.room).emit(
           'message', `${user.username} has left the chat`)

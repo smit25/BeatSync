@@ -9,7 +9,7 @@ module.exports = (app) => {
   app.get('/', (req, res) => {
     res.render('login')
   })
-  console.log('Smit')
+  // console.log('Smit')
   app.get('/signin', (req, res) => {
     res.render('signin')
   })
@@ -18,17 +18,21 @@ module.exports = (app) => {
   })
 
   app.get('/room/:url', (req, res) => {
-    console.log(req.params.url + ' urlget')
+    console.log(req.params.url + ' in createRoom.js')
+    // Set Admin Id Cookie
+    let userId = req.cookies['userId']
+    res.cookie('adminId', userId, { httpOnly: false })
+    console.log('adminId cookie set: ')
     res.sendFile(path.join(appDir + '/public/socket.html'))
   })
 
-  app.post('/room/:url', (req, res) => {
+  app.post('/room/:url', async (req, res) => {
     const roomUrl = req.body['joinurl']
-    console.log(roomUrl)
+    console.log('joinRoom: ' + roomUrl)
     try {
-      let room = Room.findOne({ roomUrl })
+      let room = await Room.findOne({ roomUrl })
       console.log('room: ' + room)
-      if (room == roomUrl) {
+      if (room.roomUrl == roomUrl) {
         res.status(200).sendFile(path.join(appDir + '/public/socket.html'))
       } else {
         res.send('Room does not exist!')

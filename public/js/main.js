@@ -1,6 +1,6 @@
 
 const roomName = document.getElementById('room-name')
-const userList = document.getElementById('users')
+// const userList = document.getElementById('users')
 
 const socket = io()
 const cookie = document.cookie
@@ -27,6 +27,7 @@ socket.on('roomUsers', ({ room, users }) => {
   console.log(room)
   console.log(users)
   outputRoomName(room)
+  outputUsers(room)
 })
 
 // Message from server
