@@ -8,5 +8,11 @@
             <button type ="submit" name = "createRoom" formaction = "/createRoom"> Create Room </button>
             <button type ="submit" name = "joinRoom" formaction = "/joinRoom"> Join Room </button>
         </form>
+        <script>
+            const urlParams = new URLSearchParams(window.location.search)
+            const token = urlParams.get('code')
+            document.cookie = `spotify_token = ${token}; path = /`
+            console.log('spotify_cookie stored')
+        </script>
     </body>
 </html>

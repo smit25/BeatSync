@@ -9,6 +9,9 @@ module.exports = (app) => {
   app.get('/', (req, res) => {
     res.render('login')
   })
+  app.get('/searchtest', (req, res) => {
+    res.sendFile(path.join(appDir + '/public/searchtest.html'))
+  })
   // console.log('Smit')
   app.get('/signin', (req, res) => {
     res.render('signin')

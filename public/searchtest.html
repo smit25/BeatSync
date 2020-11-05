@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>search  test</title>
+    </head>
+    <body>
+        <h2> Search</h2>
+        <form id = "searchForm">
+            <input id = "search" type ="text" placeholder ="Search your track here">
+            <button type = "submit" id = "searchButton"> Search</button>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+            <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+            <script>
+                function myFunc(urlTrack, token) {
+                    $.ajax({       
+                url: 'https://api.spotify.com/v1/search?q=Hello&type=track%2Cartist&limit=10&offset=5', 
+                headers: {
+                  'Authorization': 'Bearer ' + token,
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                success: function(response) {
+                  console.log(response)
+                }
+            }); 
+                }
+                function refine(track) {
+                    console.log(track)
+                    let newTrack = track.replace(' ', '+')
+                    console.log(newTrack)
+                    return newTrack
+
+                }
+                const urlParams = new URLSearchParams(window.location.search)
+                const token = urlParams.get('code')
+                const form = document.getElementById('searchForm')
+                console.log('token: ' + token)
+                document.getElementById('search').addEventListener('change', (evt) => {
+                    evt.preventDefault()
+                    let track = evt.target.value
+                    let urlTrack = refine(track)
+                    myFunc(urlTrack, token)
+                })
+                // Add Form.onsubmit
+
+                
+            </script>
+        </form>
+    </body>
+
+</html>
