@@ -1,9 +1,7 @@
-
 const roomName = document.getElementById('room-name')
-// const userList = document.getElementById('users')
 
 const socket = io()
-const cookie = document.cookie
+var cookie = document.cookie
 console.log(cookie)
 function getCookiesMap (cookiesString) {
   return cookiesString.split(';')
@@ -15,7 +13,7 @@ function getCookiesMap (cookiesString) {
       return acc
     }, {})
 }
-const cookies = getCookiesMap(cookie)
+var cookies = getCookiesMap(cookie)
 const userId = cookies['userId']
 const room = cookies['roomUrl']
 
@@ -42,5 +40,5 @@ function outputRoomName (room) {
 
 // Add users to our page
 function outputUsers (users) {
-  console.log('users here' + users[0])
+  // console.log('users here' + users[0])
 }

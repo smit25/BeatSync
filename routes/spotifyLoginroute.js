@@ -5,7 +5,7 @@ var appDir = path.dirname(require.main.filename)
 
 var client_id = 'f6e2e07a48b742278079ce02f7f8df4f' // Your client id
 var client_secret = '37175be48eb748c49b0c9c1f8e4c8d08' // Your secret
-var redirect_uri = 'http://localhost:3000/home/' // Your redirect uri
+var redirect_uri = 'http://localhost:3000/searchtest/' // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -36,7 +36,7 @@ module.exports = (app) => {
     res.cookie(stateKey, state)
 
     // your application requests authorization
-    var scope = 'user-read-private user-read-email'
+    var scope = 'user-read-private user-read-email user-modify-playback-state user-read-playback-position user-read-playback-state user-read-currently-playing'
     res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',

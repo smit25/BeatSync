@@ -9,6 +9,7 @@
             <button type = "submit" id = "searchButton"> Search</button>
             <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
             <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+            <script src = "https://sdk.scdn.co/spotify-player.js"></script>
             <script>
                 function myFunc(urlTrack, token) {
                     $.ajax({       
@@ -40,10 +41,82 @@
                     let urlTrack = refine(track)
                     myFunc(urlTrack, token)
                 })
-                // Add Form.onsubmit
+                // Add Form.onsubmit 
+                window.onSpotifyWebPlaybackSDKReady = () => {
+                // You can now initialize Spotify.Player and use the SDK
+                var player = new Spotify.Player({
+                    name: 'BeatSync Player',
+                    getOAuthToken: token => {
+                        console.log('Dibs!')
+                        // Run code to get a fresh access token
+                        var cookie = document.cookie
+                        function getCookiesMap (cookiesString) {
+                        return cookiesString.split(';')
+                            .map((cookieString) => {
+                            return cookieString.trim().split('=')
+                            })
+                            .reduce((acc, curr) => {
+                            acc[curr[0]] = curr[1]
+                            return acc
+                            }, {})
+                        }
+                        var cookies = getCookiesMap(cookie)
+                        var token = cookies['spotify_token']                    
+                        },
+                        volume: 0.5,
+                        getid: id => function myFunc(token) {
+                            $.ajax({       
+                            url: 'https://api.spotify.com/v1/me/player/devices', 
+                            headers: {
+                            'Authorization': 'Bearer ' + token,
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                            },
+                            success: function(response) {
+                            console.log(response + 'NULLLLLL')
+                            if(!response){
+                                id = response.devices[0].id
+                                console.log('Device id ', id)
+                            }
+                            else{
+                                console.log("No Active Device.")
+                            }
+                            }
+                            })
+                        },
+                    //For playing a URL
+                            play: playurls => function myfunc(){
+                            spotify_uri,
+                            playerInstance: {
+                                _options: {
+                                getOAuthToken,
+                                getid
+                                }
+                            }
+                            }) => {
+                            getOAuthToken(token => {
+                                console.log('Smit')
+                                fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({ uris: [spotify_uri] }),
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                });
+                            });
+                            };
 
-                
+                            play({
+                            playerInstance: new Spotify.Player({ name: "..." }),
+                            spotify_uri: 'spotify:track:7xGfFoTpQ2E7fRF5lN10tr',
+                            });
+                        };
+                        });
+
+                        
             </script>
+
         </form>
     </body>
 
