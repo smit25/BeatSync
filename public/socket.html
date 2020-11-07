@@ -30,7 +30,7 @@
                   <h2> Search</h2>
             <form id = "searchForm">
             <input id = "search" type ="text" placeholder ="Search your track here" list = "searchItems">
-            <datalist id ="searchItems"></datalist>
+            <datalist id = "searchItems"></datalist>
             <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
             <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
             <script src = "./js/search.js"></script>
@@ -42,6 +42,8 @@
                   <hr>
                   <h5 id="song-name">Name of song/Artist/wagera</h5>
                   <a href="index.html" class="btn btn-success">Sync Everybody</a>
+                  <button type="button" onclick="startplay();return false;">Start/Resume</button>
+                  <button  type="button" onclick="pause();return false;">Pause</button>
                   <ul id="users"></ul>
                 </div>
             </main>
@@ -71,5 +73,6 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>
+    <script src = ./js/playback.js></script>
   </body>
 </html>

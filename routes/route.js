@@ -64,4 +64,8 @@ module.exports = (app) => {
     console.log('Sending search.js')
     res.status(200).sendFile(path.join(appDir + '/public/js/search.js'))
   })
+  app.get('/room/js/playback.js', (req, res) => {
+    console.log('Sending playback.js')
+    res.status(200).sendFile(path.join(appDir + '/public/js/playback.js'))
+  })
 }

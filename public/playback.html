@@ -1,0 +1,82 @@
+<html>
+    <head></head>
+    <body>
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script>
+            window.onSpotifyWebPlaybackSDKReady = () => {
+              // You can now initialize Spotify.Player and use the SDK
+              var player = new Spotify.Player({
+                name: 'BeatSync Player',
+                getOAuthToken: callback => {
+                    // Run code to get a fresh access token
+                    var cookie = document.cookie
+                    function getCookiesMap (cookiesString) {
+                    return cookiesString.split(';')
+                        .map((cookieString) => {
+                        return cookieString.trim().split('=')
+                        })
+                        .reduce((acc, curr) => {
+                        acc[curr[0]] = curr[1]
+                        return acc
+                        }, {})
+                    }
+                    var cookies = getCookiesMap(cookie)
+                    var access_token = cookies['spotify_token']
+                        callback('access token here');
+                        },
+                        volume: 0.5
+                    });
+
+            //Getting Device URL
+                    var id = ''
+                    function myFunc(urlTrack, token) {
+                    $.ajax({       
+                url: 'https://api.spotify.com/v1/me/player/devices', 
+                headers: {
+                  'Authorization': 'Bearer ' + token,
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                success: function(response) {
+                  console.log(response)
+                  if(!response){
+                      id = response.devices[0].id
+                  }
+                  else{
+                      console.log("No Active Device.")
+                  }
+                }
+                });
+            }
+
+
+            //For playing a URL
+                const play = ({
+                spotify_uri,
+                playerInstance: {
+                    _options: {
+                    getOAuthToken,
+                    id
+                    }
+                }
+                }) => {
+                getOAuthToken(access_token => {
+                    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ uris: [spotify_uri] }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${access_token}`
+                    },
+                    });
+                });
+                };
+
+                play({
+                playerInstance: new Spotify.Player({ name: "..." }),
+                spotify_uri: 'spotify:track:7xGfFoTpQ2E7fRF5lN10tr',
+                });
+            };
+        </script>
+    </body>
+</html>
