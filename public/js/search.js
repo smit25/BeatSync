@@ -4,7 +4,7 @@ function myFunc (urlTrack, token) {
   $.ajax({
     url: 'https://api.spotify.com/v1/search?q=' + urlTrack + '&type=track%2Cartist&limit=' + limit + '&offset=5',
     headers: {
-      'Authorization': 'Bearer BQD8tPKEpawfkWh3KdMP4ID1i1idgO4a-xWzEsCqaQSOcZDw9FQWNY8-NnxZwDdyUn8Cc07Xw7HVDP7V4pH7wmix8pREA_6yuwTF7ZTk53FBnS0dpjebF4nt5zspOTw8HA8ERym22um98ariLDn-DABQGkzO7eRLoYVM12RMLiW1FxTe',
+      'Authorization': 'Bearer BQADcTQFYrkN6_FrCO9ng4zuWtdwFNzLQpIgRuynXVfs3AfUdcAD3EkUYnPZNaP8SvMdwTs_6-G2nhKT2g-F0eJOZYWNvF-__rafJWd3Q8Mp0ZFtssW7_V743dU-5Mg3hxJIKUyZApoFzocXF5odM3AVbkrCr0efLBrwdYlVbGCSw5LL',
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
@@ -24,35 +24,36 @@ function myFunc (urlTrack, token) {
 }
 
 var handleTrackresponse = (response) => {
-  const song = response.tracks.items
   for (let i = 0; i < limit; i++) {
+    const song = response.tracks.items[i]
+    var songName = song.name
+    var artistName = 'Unknown'
+    var preview = song.href
+    if (song.artists.length > 0) {
+      artistName = song.artists[0].name
+    }
     songList[i] = {
-      name: song[i],
-      artistName = (song[i].artists.length > 0?song[i].artists[0].name: 'Unknown')
+      name: songName,
+      artistName: artistName,
+      url: preview
     }
   }
   var searchItems = document.getElementById('searchItems')
   searchItems.innerHTML = ''
   for (let i = 0; i < limit; i++) {
     var searchData = document.createElement('search-item')
-    searchData.innerHTML = layoutSongList(response.tracks.items[i])
+    searchData.innerHTML = layoutSongList(songList[i])
+    searchItems.appendChild(searchData)
   }
 }
 
 var layoutSongList = function (songItem) {
   var htmlText = ''
-  var cur = songItem
-  var songName = cur.name
-  var artistName = 'Unknown'
-  if (cur.artists.length > 0) {
-    artistName = cur.artists[0].name
-  }
   /* var imgUrl = 'http://dudespaper.com/wp-content/uploads/2008/12/lebowskirecordalbum1.jpg'
     if (cur.album.images.length > 0) {
       imgUrl = cur.album.images[0].url
     } */
-  var preview = cur.preview_url
-  htmlText += '<option class="col-sm-12 text-center cover songList" data-preview="' + preview + '"><h4>' + songName + '<small><br>' + artistName + '</small></h4></div>'
+  htmlText += `<option value = "${songItem.url}"> Song: ${songItem.name} Artist: ${songItem.artistName} </option>`
   return htmlText
 }
 function refine (track) {
