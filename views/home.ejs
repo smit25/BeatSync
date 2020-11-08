@@ -11,7 +11,9 @@
         <script>
             const urlParams = new URLSearchParams(window.location.search)
             const token = urlParams.get('code')
-            document.cookie = `spotify_token = ${token}; path = /`
+            var now = new Date();
+            now.setTime(now.getTime() + 1 * 3600 * 1000);
+            document.cookie = `spotify_token = ${token}; expires=${now.toUTCString()}; path = /`
             console.log('spotify_cookie stored')
         </script>
     </body>

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const path = require('path')
+const auth = require('../middleware/auth')
 var appDir = path.dirname(require.main.filename)
 
 function makeid (length) {
@@ -16,14 +17,14 @@ function makeid (length) {
   return result
 }
 
-router.post('/createRoom', async (req, res, next) => {
+router.post('/createRoom', auth, async (req, res, next) => {
   const url = makeid(6)
   res.cookie('roomUrl', url, { httpOnly: false })
   console.log(url)
   console.log('Room cookie set')
   await res.status(200).sendFile(path.join(appDir + '/public/generateUrl.html'))
 })
-router.post('/joinRoom', (req, res) => {
+router.post('/joinRoom', auth, (req, res) => {
   res.sendFile(path.join(appDir + '/public/joinroom.html'))
 })
 module.exports = router

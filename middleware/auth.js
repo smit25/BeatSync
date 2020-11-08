@@ -1,18 +1,15 @@
-const jwt = require('jsonwebtoken')
 
 module.exports = (req, res, next) => {
-  const token = req.header('token')
-  if (!token) {
-    return res.status(401).json({
-      message: 'Auth Error' })
-  }
-
   try {
-    const decoded = jwt.verify(token, 'justanotherasshole')
-    req.user = decoded.user
+    const token = req.cookies['spotify_token']
+    if (!token) {
+      console.log('Not signed in!!')
+      return res.status(401).json({
+        message: 'Please Sign in or Sign Up' })
+    }
     next()
   } catch (e) {
     console.error(e)
-    res.status(500).send({ message: 'Invalid Token' })
+    res.status(500).send({ message: 'Please Sign in Again' })
   }
 }

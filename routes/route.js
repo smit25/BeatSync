@@ -1,5 +1,5 @@
 // const username = require('./signuproute')
-// var auth = require('../middleware/auth')
+var auth = require('../middleware/auth')
 const path = require('path')
 var appDir = path.dirname(require.main.filename)
 
@@ -9,7 +9,7 @@ module.exports = (app) => {
   app.get('/', (req, res) => {
     res.render('login')
   })
-  app.get('/searchtest', (req, res) => {
+  app.get('/searchtest', auth, (req, res) => {
     res.sendFile(path.join(appDir + '/public/searchtest.html'))
   })
   // console.log('Smit')
@@ -20,7 +20,7 @@ module.exports = (app) => {
     res.render('signup')
   })
 
-  app.get('/room/:url', (req, res) => {
+  app.get('/room/:url', auth, (req, res) => {
     console.log(req.params.url + ' in createRoom.js')
     // Set Admin Id Cookie
     let userId = req.cookies['userId']
@@ -29,7 +29,7 @@ module.exports = (app) => {
     res.sendFile(path.join(appDir + '/public/socket.html'))
   })
 
-  app.post('/room/:url', async (req, res) => {
+  app.post('/room/:url', auth, async (req, res) => {
     const roomUrl = req.body['joinurl']
     console.log('joinRoom: ' + roomUrl)
     try {

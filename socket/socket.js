@@ -42,7 +42,7 @@ module.exports = (io) => {
       // initialize getRoomUsers
       let users = await getRoomUsers(room)
 
-      // add User to Schema
+      // Add User to Schema
       await addUser(id, room, username)
 
       // Welcome current user
@@ -63,6 +63,26 @@ module.exports = (io) => {
       })
     })
 
+    // playForAll
+    socket.on('playForAll', async ({ room, songUrl }) => {
+      console.log('Playing ' + songUrl + ' for ' + room)
+      io.to(room).emit('play', {
+        room: room,
+        songUrl: songUrl
+      })
+    })
+
+    // resume song
+    socket.on('resumeForAll', async ({ room }) => {
+      console.log('Resuming song for ' + room)
+      io.to(room).emit('resume')
+    })
+
+    // Pause Song
+    socket.on('pauseForAll', async ({ room }) => {
+      console.log('Pausing song for ' + room)
+      io.to(room).emit('pause')
+    })
     // Runs when client disconnects
     socket.on('disconnect', async () => {
       const user = await userLeave(socket.id)

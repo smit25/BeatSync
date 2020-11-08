@@ -29,21 +29,23 @@
                 <div class="chat-sidebar">
                   <h2> Search</h2>
             <form id = "searchForm">
-            <input id = "search" type ="text" placeholder ="Search your track here" list = "searchItems">
-            <datalist id = "searchItems"></datalist>
+            <input id = "search" name = "searchList" type ="text" placeholder ="Search your track here" list = "searchItems">
+            <button type="submit" value="Submit">Search</button>
+            </form>
+            <datalist id = "searchItems" name = "searchList"></datalist>
             <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
             <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
             <script src = "./js/search.js"></script>
                   <h3><i class="fas fa-comments"></i> Song:</h3>
                   <hr>
-                  <div class="container">
-                    <img class="img-fluid" src="https://picsum.photos/200/300" alt="Chania" width="120" height="120"> 
+                  <div class="container" id = "image">
+                    <img class="img-fluid" src="" alt="Chania" width="120" height="120"> 
                   </div>
                   <hr>
-                  <h5 id="song-name">Name of song/Artist/wagera</h5>
-                  <a href="index.html" class="btn btn-success">Sync Everybody</a>
-                  <button type="button" onclick="startplay();return false;">Start/Resume</button>
-                  <button  type="button" onclick="pause();return false;">Pause</button>
+                  <h5 id="song-name"></h5>
+                  <!--<a href="index.html" class="btn btn-success">Sync Everybody</a> -->
+                  <button type="button" onclick="playForAll();return false;">Start/Resume</button>
+                  <button  type="button" onclick="pauseForAll();return false;">Pause</button>
                   <ul id="users"></ul>
                 </div>
             </main>

@@ -13,6 +13,7 @@ function getCookiesMap (cookiesString) {
 const cookies = getCookiesMap(cookie)
 const roomUrl = cookies['roomUrl']
 // const testUrl = 'qwerty'
+var token = 'BQD3TLxdH0pLGhsMcQYNGPE2EWyf1a4G7cltCsKLGPyJHYzs3T_rlAWeHsrs9kEWylwQoYuiNKS8KCAzNwr1frJTplRZscJMb-YzbiK0_WWPCYQWLpRS-Lk630EESvSckMWRL7soASUlEVuhypwd-SQDfTWlon4FFKr0UF1fsH_EtP5I'
 
 const form = document.getElementById('generateUrlForm')
 form.action = '/room/' + roomUrl
@@ -32,7 +33,7 @@ function deviceid () {
     url: `https://api.spotify.com/v1/me/player/devices`,
     type: 'GET',
     headers: {
-      'Authorization': 'Bearer BQCCnu7cZIPXDgk-Tiuamr4TFckrRTvTdQ-z94qd-ycumO6tZH9w4FJcZayFwxWogKupvRoJycGsZlA0qBorbFq2g_sBaqSqsWT_oA-hh9Py254YoeOt3EOAIPptrnd0su2Zin1ZEsdW8BtTwfIMpxkolOhYPE8K_-qVWm0grc6nMBQQ',
+      'Authorization': 'Bearer ' + token,
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
