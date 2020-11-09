@@ -6,6 +6,7 @@ const router = express.Router()
 
 var User = require('../model/Users')
 
+// Check the validity of the input credentials using express-validator
 router.post('/signup',
   [
     check('username', 'Please Enter a Username').not().isEmpty(),
@@ -14,6 +15,7 @@ router.post('/signup',
     })
   ],
 
+  // Middleware for checking errors
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors) {
@@ -21,28 +23,36 @@ router.post('/signup',
         errors: errors.array()
       })
     }
+    // Store the credentials in an object
     const { username, email, password } = req.body
 
     try {
-      console.log('working so far')
+      console.log('signuproute halfway')
       let user = await User.findOne({ email })
       if (user) {
         return res.status(400).json({
           errMsg: 'User with this email already exists!'
         })
       }
-
+      // Store the new user in the User Collection
       let today = new Date().toISOString().slice(0, 10)
       user = new User({
         username, email, password, today
       })
-      console.log(user)
+      // console.log(user)
 
+      // Generate encrypted password using bcrypt
       const salt = await bcrypt.genSalt(10)
       user.password = await bcrypt.hash(password, salt)
 
+      // async save the record in the collection
       await user.save()
-      res.cookie('userId', user.id, { domain: 'localhost:3000' })
+
+      // Store userId cookie
+      res.cookie('userId', user.id)
+      console.log('userId in signup stored')
+
+      // Parameters which can be extracted from the jsonwebtoken
       const payload = {
         user: {
           id: user.id,
@@ -50,6 +60,7 @@ router.post('/signup',
         }
       }
 
+      // Method for creating token
       jwt.sign(
         payload, 'justanotherasshole', { expiresIn: 10000 }, (err, token) => {
           if (err) throw err
@@ -59,8 +70,9 @@ router.post('/signup',
           )
         }
       )
-
-      res.redirect('/home')
+      // Redirecting to Spotify Authentiction
+      res.redirect('/spotifylogin')
+      // Throw exception
     } catch (err) {
       console.log(err.message)
       res.status(500).send('Saving Error')
@@ -70,4 +82,3 @@ router.post('/signup',
 )
 
 module.exports = router
-// module.exports = userCopy

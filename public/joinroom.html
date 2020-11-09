@@ -6,27 +6,19 @@
     <body>
         <h2>Join Room - Enter Room URL</h2>
         <form id = "joinRoomForm" method="POST"> 
-            <input type="text" name="joinurl"
+            <input type="text" name="joinurl" id = "joinurl"
                 placeholder="Enter your Room Key" required>  
-            <button type="submit">Join Room</button> 
+            <button type="submit" onsubmit= "formSubmit()" >Join Room</button> 
         </form> 
         <script>
-            const cookie = document.cookie
-            console.log(cookie)
-            function getCookiesMap (cookiesString) {
-            return cookiesString.split(';')
-                .map((cookieString) => {
-                return cookieString.trim().split('=')
-                })
-                .reduce((acc, curr) => {
-                acc[curr[0]] = curr[1]
-                return acc
-             }, {})
-}
-const cookies = getCookiesMap(cookie)
-const roomUrl = cookies['roomUrl']
+
+
             const form = document.getElementById('joinRoomForm')
-            form.action = '/room/' + roomUrl
+            form.addEventListener('submit', () => {
+            const room = document.getElementById('joinurl').value
+            console.log(room)
+            form.action = '/room/' + room
+        })
         </script>
     </body>
 </html>

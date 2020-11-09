@@ -35,7 +35,7 @@
             <datalist id = "searchItems" name = "searchList"></datalist>
             <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
             <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-            <script src = "./js/search.js"></script>
+
                   <h3><i class="fas fa-comments"></i> Song:</h3>
                   <hr>
                   <div class="container" id = "image">
@@ -46,6 +46,7 @@
                   <!--<a href="index.html" class="btn btn-success">Sync Everybody</a> -->
                   <button type="button" onclick="playForAll();return false;">Start/Resume</button>
                   <button  type="button" onclick="pauseForAll();return false;">Pause</button>
+                  <button  type="button" onclick="return false;">Stop</button>
                   <ul id="users"></ul>
                 </div>
             </main>
@@ -75,6 +76,6 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>
-    <script src = ./js/playback.js></script>
+    <script src = "./js/search.js"></script>
   </body>
 </html>

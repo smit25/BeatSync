@@ -1,11 +1,10 @@
-
 module.exports = (req, res, next) => {
   try {
-    const token = req.cookies['spotify_token']
+    const token = req.cookies['userId']
     if (token == null) {
-      console.log('Error in spotify authentication')
+      console.log('Not signed in!!')
       return res.status(401).json({
-        message: 'Authentiction with Spotify needed' })
+        message: 'Please Sign in or Sign Up' })
     }
     next()
   } catch (e) {

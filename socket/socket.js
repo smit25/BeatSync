@@ -15,15 +15,15 @@ module.exports = (io) => {
       const userjson = await User.findById(userId)
       const username = userjson.username
 
-      console.log(socket.id)
       let id = socket.id
 
       const userSave = { socketId: id, username: username }
 
-      let roomRecord = await Room.findOne({ roomUrl: room })
-      console.log('roomFound ' + roomRecord)
+      let roomRecord = await Room.findOne({ room })
+      console.log('roomFound (joinRoom event in socket.js) ' + roomRecord)
+
       // Add new user to room
-      if (roomRecord !== null) {
+      if (roomRecord != null) {
         roomRecord.roomUsers.push(userSave)
         await roomRecord.save()
       } else {
@@ -34,9 +34,9 @@ module.exports = (io) => {
           roomUsers: [userSave]
         })
         await roomRecord.save()
-        console.log(roomRecord)
+        console.log('Updated room(JoinRoom in socket.js) ' + roomRecord)
       }
-
+      // join the room
       socket.join(room)
 
       // initialize getRoomUsers
@@ -90,7 +90,7 @@ module.exports = (io) => {
       console.log('admin check: ' + leftUser.adminId)
 
       // Destroy the room if admin leaves
-      if (leftUser.adminId === socket.id) {
+      if (leftUser.adminId == socket.id) {
         io.of('/').in(user.room).clients((error, socketIds) => {
           if (error) { throw error }
           socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(user.room))

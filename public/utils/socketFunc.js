@@ -1,4 +1,4 @@
-// const express = require('express')
+// Declaring the Mongo Collections
 var Room = require('../../model/Rooms')
 var UserInRoom = require('../../model/userInRoom')
 
@@ -6,22 +6,20 @@ var UserInRoom = require('../../model/userInRoom')
 async function userLeave (id) {
   try {
     let userInRoomRecord = await UserInRoom.findOne({ socketId: id })
-    console.log('leftUserRoom ' + userInRoomRecord)
+    console.log('Room of the user that Left in userLeave util ' + userInRoomRecord)
     let roomRecord = await Room.findOne({ roomUrl: userInRoomRecord.roomUrl })
-    // console.log('RoomRecord: ' + roomRecord)
     let roomUsers = roomRecord.roomUsers
     let item = roomUsers.find(user => user.socketId == id)
-    // console.log('------------ ' + item + ' ---------')
     let index = roomUsers.indexOf(item)
+
     let leftUser = { room: roomRecord.roomUrl,
       username: item.username }
 
     if (index !== -1) {
       roomUsers.splice(index, 1)
-      // console.log('!!!!!!!1 ' + roomUsers)
       roomRecord.roomUsers = roomUsers
       await roomRecord.save()
-      console.log('leftUser: ' + leftUser)
+      console.log('leftUser in userLeave util: ' + leftUser)
       return leftUser
     }
   } catch (err) {
@@ -32,13 +30,13 @@ async function userLeave (id) {
 // Get room users
 async function getRoomUsers (room) {
   try {
-    console.log('roomhere :' + room)
+    console.log('roomUrl in getRoomUsers util ' + room)
     let roomRecord = await Room.findOne({ roomUrl: room })
     let roomusers = []
     for (var i = 0; i < roomRecord.roomUsers.length; i++) {
       roomusers.push(roomRecord.roomUsers[i])
     }
-    console.log(roomusers)
+    console.log('Users in the room(getRoomUsers util): ' + roomusers)
     return roomusers
   } catch (err) {
     console.log(err)
@@ -53,7 +51,7 @@ async function addUser (id, room, username) {
       roomUrl: room,
       username: username
     })
-    console.log('userAdded: ' + user)
+    console.log('userAdded in addUser util: ' + user)
     await user.save()
   } catch (err) {
     console.log('error: couldn;t save user in room')

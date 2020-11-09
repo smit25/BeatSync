@@ -8,8 +8,9 @@ var app = express()
 const server = http.createServer(app)
 const socketfile = require('./socket/socket')
 
-// initialising mongo server
+// Declaring Mongo Sevrer
 var mongoServer = require('./config/database')
+// Declaration in express for identifying static files
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Initializing the express and socket server
@@ -24,7 +25,7 @@ var signup = require('./routes/signinroute')
 var spotifyLogin = require('./routes/spotifyLoginroute')
 var homeRoute = require('./routes/homeRoute')
 
-// Server
+// Database Server
 mongoServer()
 
 // Setting the template engine
@@ -37,22 +38,22 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
   next()
 })
-// Rendering static files and cookie parser
 
+// Declaring CORS and Cookie-Parser middleware
 app.use(cors({ origin: true, credentials: true })).use(cookieParser())
 
-// Initialising Body-Parser
+// Initialising Body-Parser middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// Routing
+// Calling the Routes
 routes(app)
 spotifyLogin(app)
 app.use('/', homeRoute)
 app.use('/', signin)
 app.use('/', signup)
-// app.use('/', me)
 
+// Run the server
 const host = 3000 || process.send.PORT
 server.listen(host)
 console.log('Hey server is running')

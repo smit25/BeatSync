@@ -4,6 +4,7 @@ const path = require('path')
 const auth = require('../middleware/auth')
 var appDir = path.dirname(require.main.filename)
 
+// Function to generate room Url
 function makeid (length) {
   var result = ''
   var characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
@@ -20,11 +21,13 @@ function makeid (length) {
 router.post('/createRoom', auth, async (req, res, next) => {
   const url = makeid(6)
   res.cookie('roomUrl', url, { httpOnly: false })
-  console.log(url)
-  console.log('Room cookie set')
+  // console.log(url)
+  console.log('RoomUrl in createRoom route set: ' + url)
   await res.status(200).sendFile(path.join(appDir + '/public/generateUrl.html'))
 })
+
 router.post('/joinRoom', auth, (req, res) => {
   res.sendFile(path.join(appDir + '/public/joinroom.html'))
 })
+
 module.exports = router

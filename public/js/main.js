@@ -17,40 +17,10 @@ function getCookiesMap (cookiesString) {
 }
 var cookies = getCookiesMap(cookie)
 const userId = cookies['userId']
+var device = cookies['deviceId']
 const room = cookies['roomUrl']
-// const token = cookies['spotify_token']
-var token = 'BQCPG-P9sjK-OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
-
-var device = '269d7d4047552e80e84edaebf1b3488dc05c3836'
-function resume () {
-  $.ajax({
-    url: `https:/api.spotify.com/v1/me/player/play?device_id=${device}`,
-    type: 'PUT',
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    success: function (response) {
-      console.log('Resume request made')
-    }
-  })
-}
-function pause () {
-  $.ajax({
-    url: `https://api.spotify.com/v1/me/player/pause?device_id=${device}`,
-    type: 'PUT',
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    success: function (response) {
-      console.log('Pause Request made!')
-      console.log(response)
-    }
-  })
-}
+var token = cookies['spotify_token']
+// var token = 'BQCPG-P9sjK-OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
 
 function play (songUrl) {
   $.ajax({
@@ -72,13 +42,43 @@ function play (songUrl) {
   })
 }
 
+function resume () {
+  $.ajax({
+    url: `https:/api.spotify.com/v1/me/player/play?device_id=${device}`,
+    type: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    success: function (response) {
+      console.log('Resume request made')
+    }
+  })
+}
+
+function pause () {
+  $.ajax({
+    url: `https://api.spotify.com/v1/me/player/pause?device_id=${device}`,
+    type: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    success: function (response) {
+      console.log('Pause Request made!')
+      console.log(response)
+    }
+  })
+}
+
 function playForAll () {
 // check if a song is selected
   if (track != '') {
     if (isPlaying) {
       socket.emit('resumeForAll', { room })
-    }
-    else if (!isPlaying) {
+    } else if (!isPlaying) {
       console.log('playforAll track: ' + track)
       socket.emit('playForAll', { room: room, songUrl: track })
     }
