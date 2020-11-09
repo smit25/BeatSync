@@ -18,9 +18,17 @@ function getCookiesMap (cookiesString) {
 var cookies = getCookiesMap(cookie)
 const userId = cookies['userId']
 var device = cookies['deviceId']
-const room = cookies['roomUrl']
 var token = cookies['spotify_token']
-// var token = 'BQCPG-P9sjK-OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
+const urlParams = window.location.href
+console.log('url: ' + urlParams)
+const queryArr = urlParams.split('/')
+var room = String(queryArr.slice(-1))
+if (room[ room.length - 1 ] == '?') {
+  room = room.slice(0, -1)
+}
+console.log(room)
+
+// var token = 'BQCPG-P9sjK-)OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
 
 function play (songUrl) {
   $.ajax({

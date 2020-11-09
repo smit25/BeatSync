@@ -27,9 +27,6 @@ module.exports = (app) => {
   app.get('/room/:url', auth, (req, res) => {
     console.log(req.params.url + ' in createRoom.js')
     // Set Admin Id Cookie
-    let userId = req.cookies['userId']
-    res.cookie('adminId', userId, { httpOnly: false })
-    console.log('adminId cookie set: ')
     res.sendFile(path.join(appDir + '/public/socket.html'))
   })
   // Join Room route

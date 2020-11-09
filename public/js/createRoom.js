@@ -14,6 +14,7 @@ function getCookiesMap (cookiesString) {
 const cookies = getCookiesMap(cookie)
 const roomUrl = cookies['roomUrl']
 var token = cookies['spotify_token']
+const userId = cookies['userId']
 // var token = 'BQD3TLxdH0pLGhsMcQYNGPE2EWyf1a4G7cltCsKLGPyJHYzs3T_rlAWeHsrs9kEWylwQoYuiNKS8KCAzNwr1frJTplRZscJMb-YzbiK0_WWPCYQWLpRS-Lk630EESvSckMWRL7soASUlEVuhypwd-SQDfTWlon4FFKr0UF1fsH_EtP5I'
 
 // Assigning the action to the form
@@ -33,7 +34,7 @@ function deviceid () {
     success: function (response) {
       let deviceId = response.devices[0].id
       console.log('Device id stored ' + deviceId)
-      var now = new Date()
+      let now = new Date()
       now.setTime(now.getTime() + 10 * 3600 * 1000)
       document.cookie = `deviceId = ${deviceId}; expires=${now.toUTCString()}; path = /`
     }
@@ -42,6 +43,9 @@ function deviceid () {
 
 function createRoom () {
   deviceid()
+  let now = new Date()
+  now.setTime(now.getTime() + 10 * 3600 * 1000)
+  document.cookie = `adminId = ${userId}; expires=${now.toUTCString()}; path = /`
   try {
     console.log(roomUrl)
     var div = document.getElementById('addUrl')

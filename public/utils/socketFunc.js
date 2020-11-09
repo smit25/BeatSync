@@ -5,7 +5,7 @@ var UserInRoom = require('../../model/userInRoom')
 // User leaves chat
 async function userLeave (id) {
   try {
-    let userInRoomRecord = await UserInRoom.findOne({ socketId: id })
+    let userInRoomRecord = await UserInRoom.findOne({ id })
     console.log('Room of the user that Left in userLeave util ' + userInRoomRecord)
     let roomRecord = await Room.findOne({ roomUrl: userInRoomRecord.roomUrl })
     let roomUsers = roomRecord.roomUsers

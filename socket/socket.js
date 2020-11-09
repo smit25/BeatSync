@@ -16,10 +16,11 @@ module.exports = (io) => {
       const username = userjson.username
 
       let id = socket.id
-
+      // store user data in an object
       const userSave = { socketId: id, username: username }
 
-      let roomRecord = await Room.findOne({ room })
+      // Find room of the user from database
+      let roomRecord = await Room.findOne({ roomUrl: room })
       console.log('roomFound (joinRoom event in socket.js) ' + roomRecord)
 
       // Add new user to room
@@ -72,7 +73,7 @@ module.exports = (io) => {
       })
     })
 
-    // resume song
+    // Resume song
     socket.on('resumeForAll', async ({ room }) => {
       console.log('Resuming song for ' + room)
       io.to(room).emit('resume')
@@ -87,7 +88,7 @@ module.exports = (io) => {
     socket.on('disconnect', async () => {
       const user = await userLeave(socket.id)
       const leftUser = await Room.findOne({ roomUrl: user.room })
-      console.log('admin check: ' + leftUser.adminId)
+      console.log('admin check in disconnect: ' + leftUser.adminId)
 
       // Destroy the room if admin leaves
       if (leftUser.adminId == socket.id) {
@@ -96,7 +97,7 @@ module.exports = (io) => {
           socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(user.room))
         })
       } else {
-        console.log('leftUser ' + user)
+        console.log('leftUser in disconnect ' + user)
         io.to(user.room).emit(
           'message', `${user.username} has left the chat`)
 
