@@ -10,15 +10,52 @@
                 placeholder="Enter your Room Key" required>  
             <button type="submit" onsubmit= "formSubmit()" >Join Room</button> 
         </form> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-
-
             const form = document.getElementById('joinRoomForm')
             form.addEventListener('submit', () => {
             const room = document.getElementById('joinurl').value
             console.log(room)
             form.action = '/room/' + room
         })
+
+const cookie = document.cookie
+console.log(cookie)
+// Function to process cookie
+function getCookiesMap (cookiesString) {
+  return cookiesString.split(';')
+    .map((cookieString) => {
+      return cookieString.trim().split('=')
+    })
+    .reduce((acc, curr) => {
+      acc[curr[0]] = curr[1]
+      return acc
+    }, {})
+}
+const cookies = getCookiesMap(cookie)
+var token = cookies['spotify_token']
+
+function deviceid () {
+  console.log('token: ' + token)
+  $.ajax({
+    url: `https://api.spotify.com/v1/me/player/devices`,
+    type: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    success: function (response) {
+      let deviceId = response.devices[0].id
+      console.log('Device id stored ' + deviceId)
+      let now = new Date()
+      now.setTime(now.getTime() + 10 * 3600 * 1000)
+      document.cookie = `deviceId = ${deviceId}; expires=${now.toUTCString()}; path = /`
+    }
+  })
+}
+window.onload = deviceid()
+        
         </script>
     </body>
 </html>
