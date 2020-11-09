@@ -1,4 +1,4 @@
-var token = 'BQCPG-P9sjK-OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
+// var token = 'BQCPG-P9sjK-OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
 
 var track = ''
 const limit = 5
@@ -83,6 +83,7 @@ function getCookiesMap (cookiesString) {
     }, {})
 }
 var cookies = getCookiesMap(cookie)
+var token = cookies['spotify_token']
 // extract token
 
 const form = document.getElementById('searchForm')

@@ -35,7 +35,7 @@ module.exports = (app) => {
     res.cookie(stateKey, state)
 
     // your application requests authorization
-    var scope = 'user-read-private user-read-email user-modify-playback-state user-read-playback-position user-read-playback-state user-read-currently-playing'
+    var scope = 'user-read-private user-read-email user-modify-playback-state user-read-playback-state user-read-currently-playing'
     res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -76,6 +76,8 @@ module.exports = (app) => {
         if (!error && response.statusCode === 200) {
           var access_token = body.access_token
           var refresh_token = body.refresh_token
+          response.cookie('token_test', access_token)
+          console.log('----' + access_token)
 
           var options = {
             url: 'https://api.spotify.com/v1/me',
@@ -86,13 +88,14 @@ module.exports = (app) => {
           // use the access token to access the Spotify Web API
           request.get(options, (error, response, body) => {
             console.log(body)
+            console.log('Smit ' + access_token)
             if (error) {
               console.log(error)
             }
           })
 
           // We can also pass the token to the browser to make requests from there
-          res.redirect('spotifyLogin' +
+          res.redirect('spotifylogin' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token

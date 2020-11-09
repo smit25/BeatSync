@@ -5,7 +5,8 @@ var UserInRoom = require('../../model/userInRoom')
 // User leaves chat
 async function userLeave (id) {
   try {
-    let userInRoomRecord = await UserInRoom.findOne({ id })
+    let userInRoomRecord = await UserInRoom.findOne({ socketId: id })
+    await UserInRoom.findOneAndRemove({ socketId: id })
     console.log('Room of the user that Left in userLeave util ' + userInRoomRecord)
     let roomRecord = await Room.findOne({ roomUrl: userInRoomRecord.roomUrl })
     let roomUsers = roomRecord.roomUsers
@@ -19,7 +20,7 @@ async function userLeave (id) {
       roomUsers.splice(index, 1)
       roomRecord.roomUsers = roomUsers
       await roomRecord.save()
-      console.log('leftUser in userLeave util: ' + leftUser)
+      console.log('userLeave members left : ' + roomRecord.roomUsers)
       return leftUser
     }
   } catch (err) {

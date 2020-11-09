@@ -90,11 +90,13 @@
         var access_token = params.access_token,
             refresh_token = params.refresh_token,
             error = params.error;
+        console.log('11 ' + access_token)
 
         if (error) {
           alert('There was an error during the authentication');
         } else {
           if (access_token) {
+            console.log('Access token: ' + access_token)
             // render oauth info
             oauthPlaceholder.innerHTML = oauthTemplate({
               access_token: access_token,

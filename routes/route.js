@@ -2,6 +2,7 @@ var auth = require('../middleware/auth')
 var homeauth = require('../middleware/homeauth')
 const path = require('path')
 var appDir = path.dirname(require.main.filename)
+var { socketfile, isPlaying } = require('../socket/socket')
 
 // Initialising Room Collection from Mongo
 var Room = require('../model/Rooms')
@@ -38,7 +39,11 @@ module.exports = (app) => {
       let room = await Room.findOne({ roomUrl })
       console.log('room: ' + room)
       if (room.roomUrl == roomUrl) {
-        res.status(200).redirect('/room/' + roomUrl)
+        if (!isPlaying) {
+          res.status(200).redirect('/room/' + roomUrl)
+        } else {
+          res.status(401).send('Cannot join room when a track is being played, kindly stop the player!')
+        }
       } else {
         res.send('Room does not exist!')
       }
@@ -51,6 +56,10 @@ module.exports = (app) => {
   app.get('/home', homeauth, (req, res) => {
     // homeauth middleware takes care of userId cookie
     res.render('home')
+  })
+
+  app.get('/roomDestroy', (req, res) => {
+    res.status(400).sendFile(path.join(appDir + '/public/roomDestroy.html'))
   })
 
   // Routing for static js files

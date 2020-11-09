@@ -1,3 +1,4 @@
+var isPlaying = 0
 var User = require('../model/Users')
 var Room = require('../model/Rooms')
 const {
@@ -7,7 +8,7 @@ const {
 } = require('../public/utils/socketFunc')
 
 // Operate on socket.io
-module.exports = (io) => {
+var socketfile = (io) => {
   io.on('connection', socket => {
     console.log('socket works!')
 
@@ -35,8 +36,8 @@ module.exports = (io) => {
           roomUsers: [userSave]
         })
         await roomRecord.save()
-        console.log('Updated room(JoinRoom in socket.js) ' + roomRecord)
       }
+      console.log('Updated room(JoinRoom in socket.js) ' + roomRecord)
       // join the room
       socket.join(room)
 
@@ -84,18 +85,26 @@ module.exports = (io) => {
       console.log('Pausing song for ' + room)
       io.to(room).emit('pause')
     })
+
+    socket.on('stopForAll', async ({ flag }) => {
+      isPlaying = flag
+    })
     // Runs when client disconnects
     socket.on('disconnect', async () => {
       const user = await userLeave(socket.id)
+      console.log(user)
       const leftUser = await Room.findOne({ roomUrl: user.room })
       console.log('admin check in disconnect: ' + leftUser.adminId)
 
       // Destroy the room if admin leaves
       if (leftUser.adminId == socket.id) {
+        console.log('Admin disconnected')
         io.of('/').in(user.room).clients((error, socketIds) => {
           if (error) { throw error }
-          socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(user.room))
+          socketIds.forEach(socketId => io.sockets.connected[socketId].disconnect())
         })
+        io.to(user.room).emit('destroyRoom')
+        await Room.findOneAndRemove({ roomUrl: user.room })
       } else {
         console.log('leftUser in disconnect ' + user)
         io.to(user.room).emit(
@@ -110,3 +119,4 @@ module.exports = (io) => {
     })
   })
 }
+module.exports = { socketfile, isPlaying }

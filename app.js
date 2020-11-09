@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser')
 var http = require('http')
 var app = express()
 const server = http.createServer(app)
-const socketfile = require('./socket/socket')
+const { socketfile, isPlaying } = require('./socket/socket')
 
 // Declaring Mongo Sevrer
 var mongoServer = require('./config/database')

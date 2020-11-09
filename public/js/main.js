@@ -19,6 +19,8 @@ var cookies = getCookiesMap(cookie)
 const userId = cookies['userId']
 var device = cookies['deviceId']
 var token = cookies['spotify_token']
+
+// RoomUrl for joinRoom event
 const urlParams = window.location.href
 console.log('url: ' + urlParams)
 const queryArr = urlParams.split('/')
@@ -29,7 +31,7 @@ if (room[ room.length - 1 ] == '?') {
 console.log(room)
 
 // var token = 'BQCPG-P9sjK-)OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
-
+// Play a song in spotify
 function play (songUrl) {
   $.ajax({
     url: `https:/api.spotify.com/v1/me/player/play?device_id=${device}`,
@@ -50,6 +52,7 @@ function play (songUrl) {
   })
 }
 
+// Resume a song in spotify
 function resume () {
   $.ajax({
     url: `https:/api.spotify.com/v1/me/player/play?device_id=${device}`,
@@ -65,6 +68,7 @@ function resume () {
   })
 }
 
+// Pause a song in spotify
 function pause () {
   $.ajax({
     url: `https://api.spotify.com/v1/me/player/pause?device_id=${device}`,
@@ -81,6 +85,7 @@ function pause () {
   })
 }
 
+// On clicking play
 function playForAll () {
 // check if a song is selected
   if (track != '') {
@@ -95,6 +100,7 @@ function playForAll () {
   }
 }
 
+// Socket events in response to play
 socket.on('resume', () => {
   resume()
 })
@@ -102,6 +108,7 @@ socket.on('play', ({ songUrl }) => {
   play(songUrl)
 })
 
+// On clicking Pause
 function pauseForAll () {
   // check if a song is playing
   if (track != '') {
@@ -111,11 +118,31 @@ function pauseForAll () {
   }
 }
 
+// Socket Event in response to pause
 socket.on('pause', () => {
   pause()
 })
+
+// On clicking Stop
+function stopForAll () {
+  track = ''
+  isPlaying = false
+  socket.emit('stopForAll', { isPlaying })
+  pause()
+}
+
 // Join chatroom
 socket.emit('joinRoom', { userId, room })
+
+// Message from server
+socket.on('message', message => {
+  console.log(message)
+})
+
+// Destroy room
+socket.on('destroyRoom', () => {
+  window.location.replace('/roomDestroy')
+})
 
 // Get room and users on the page dynamically
 socket.on('roomUsers', ({ room, users }) => {
@@ -124,12 +151,6 @@ socket.on('roomUsers', ({ room, users }) => {
   outputRoomName(room)
   outputUsers(room)
 })
-
-// Message from server
-socket.on('message', message => {
-  console.log(message)
-})
-
 // Add room name to our page
 function outputRoomName (room) {
   roomName.innerText = room

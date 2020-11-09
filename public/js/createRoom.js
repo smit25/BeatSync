@@ -23,6 +23,7 @@ form.action = '/room/' + roomUrl
 
 // Function to extract and store device id
 function deviceid () {
+  console.log('token: ' + token)
   $.ajax({
     url: `https://api.spotify.com/v1/me/player/devices`,
     type: 'GET',
@@ -31,6 +32,7 @@ function deviceid () {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+
     success: function (response) {
       let deviceId = response.devices[0].id
       console.log('Device id stored ' + deviceId)

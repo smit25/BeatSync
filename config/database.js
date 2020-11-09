@@ -5,7 +5,8 @@ var mongoServer = async () => {
   try {
     await mongoose.connect(mongourl, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useFindAndModify: false
     })
     console.log('Connected to Database')
   } catch (err) {
