@@ -18,59 +18,75 @@
     <title>Beat-Sync-Room-Func-Sample</title>
   </head>
   <body>
+    <div class = 'container text-center'>
+      <br>
     <header class="chat-header text-center">
-        <h1><i class="fas fa-smile"></i>Beatsync</h1>
+        <h1></i>Welcome to Beatsync</h1>
     </header>
     <hr>
+    <div class="alert alert-danger" role="alert">
+      Make sure Spotify is active, First Select a song and then click to play.
+    </div>
+    <br>
     <div class="row container">
 
-        <div class="col-sm-9 text-center">
+        <div class="col-sm-8">
+
             <main class="chat-main">
                 <div class="chat-sidebar">
-                  <h2> Search</h2>
             <form id = "searchForm">
             <input id = "search" name = "searchList" type ="text" placeholder ="Search your track here" list = "searchItems">
-            <button type="submit" value="Submit">Search</button>
+            <button class='btn btn-primary' type="submit" value="Submit">Search</button>
             </form>
+            <br>
             <datalist id = "searchItems" name = "searchList"></datalist>
             <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
             <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
-                  <h3><i class="fas fa-comments"></i> Song:</h3>
+                  <h5>Song</h5>
                   <hr>
                   <div class="container" id = "image">
-                    <img class="img-fluid" src="" alt="Chania" width="120" height="120"> 
+                    <img id="image0" class="img-fluid" src="https://picsum.photos/200/300" alt="Chania" width="150" height="120"> 
                   </div>
                   <hr>
                   <h5 id="song-name"></h5>
                   <!--<a href="index.html" class="btn btn-success">Sync Everybody</a> -->
-                  <button type="button" onclick="playForAll();return false;">Start/Resume</button>
-                  <button  type="button" onclick="pauseForAll();return false;">Pause</button>
-                  <button  type="button" onclick="stopForAll();return false;">Stop</button>
+                  <button class="btn btn-primary" type="button" onclick="playForAll();return false;">Play</button>
+                  <button class="btn btn-warning" type="button" onclick="pauseForAll();return false;">Pause</button>
+                  <button class="btn btn-danger" type="button" onclick="stopForAll();return false;">Stop</button>
                   <ul id="users"></ul>
                 </div>
             </main>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div class="chat-container">
                 
                 <main class="chat-main">
                   <div class="chat-sidebar">
-                    <h3><i class="fas fa-comments"></i> Room URL : </h3>
+                    <div class="card-body alert alert-success">
+                    <h5 class="card-title">Room URL : </h5>
+                    <div class="alert alert-success" role="alert">
+                      <h1 class="card-subtitle mb-2 text-muted" id="room-name"></h1>
+                    </div>
+                  </div>
                     <hr>
-                    <h2 id="room-name"></h2>
-                    <h3><i class="fas fa-users"></i> Users</h3>
-                    <div id = userList>
+
+                    <div class="card-body alert alert-warning">
+                    <h5 class="card-title">Users</h5>
+                    <div class="card-subtitle mb-2 text-muted" id = userList>
+                    </div>
                   </div>
                   </div>
                 </main>
               </div>
-              <form action="/home" class="inline">
-                <button class="btn btn-danger text-center" >Leave Room</button>
-            </form>
+              
         </div>
+
       </div>
-      
+      <form action="/home" class="inline">
+        <button class="btn btn-danger text-center" >Leave Room</button>
+    </form>
+    </div>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
