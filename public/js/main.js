@@ -33,26 +33,26 @@ console.log(room)
 
 // var token = 'BQCPG-P9sjK-)OGBfEeGOzQBU_2FcV3-lA9RivuzhpRa5nL9mFlm4z_dKrZTiuLsXtKKvNTVJ7E4D1IH6Goo5lYX6aVZmnxDtr7NTdHSVueIP0YInOu9YIHsEqnAsBi3Yiv3YE2xdc4wRS64UYL9_VLuF81ksovaYyPTvrepLGsDvFxdNgWk'
 // Play a song in spotify
-function play (songUrl) {
-  $.ajax({
-    url: `https:/api.spotify.com/v1/me/player/play?device_id=${device}`,
-    type: 'PUT',
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json',
-      'Accept' : 'application/json'
-    },
-    data: JSON.stringify({
-      'uris': [songUrl],
-      'position_ms': 0
-    }),
-    success: function (response) {
-      isPlaying = true
-      console.log('Play/Start Request made')
-      console.log(response)
-    }
-  })
-}
+// function play (songUrl) {
+//   $.ajax({
+//     url: `https:/api.spotify.com/v1/me/player/play?device_id=${device}`,
+//     type: 'PUT',
+//     headers: {
+//       'Authorization': 'Bearer ' + token,
+//       'Content-Type': 'application/json',
+//       'Accept' : 'application/json'
+//     },
+//     data: JSON.stringify({
+//       'uris': [songUrl],
+//       'position_ms': 0
+//     }),
+//     success: function (response) {
+//       isPlaying = true
+//       console.log('Play/Start Request made')
+//       console.log(response)
+//     }
+//   })
+// }
 
 // Resume a song in spotify
 function resume () {
@@ -68,6 +68,23 @@ function resume () {
       console.log('Resume request made')
     }
   })
+}
+
+function play(songUrl){
+var url = `https:/api.spotify.com/v1/me/player/play?device_id=${device}`
+const response = await fetch('url', {
+  method: 'PUT',
+  headers: {
+    'Authorization': 'Bearer ' + token,
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    'uris': [songUrl],
+    'position_ms': 0
+  })
+});
+console.log(response)
 }
 
 // Pause a song in spotify
