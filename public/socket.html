@@ -24,9 +24,9 @@
         <h1></i>Welcome to BeatSync</h1>
     </header>
     <hr>
-    <div class="alert alert-danger" role="alert">
+   <!-- <div class="alert alert-danger" role="alert">
       Make sure Spotify is active, First Select a song and then click to play.
-    </div>
+    </div> -->
     <br>
     <div class="row container">
 
@@ -43,13 +43,11 @@
             <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
             <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
-                  <h5>Song</h5>
+                  <h5 id="song-name"></h5>
                   <hr>
                   <div class="container" id = "image">
-                    <img id="image0" class="img-fluid" src="https://picsum.photos/200/300" alt="Chania" width="200" height="150"> 
+                    <img id="image0" class="img-fluid" src="https://i1.sndcdn.com/avatars-000393260745-6pjqe5-t500x500.jpg" alt="Pick a track" width="250" height="150"> 
                   </div>
-                  <br>
-                  <h5 id="song-name"></h5>
                   <br>
                   <!--<a href="index.html" class="btn btn-success">Sync Everybody</a> -->
                   <button class="btn btn-primary" type="button" onclick="playForAll();return false;">Play</button>
