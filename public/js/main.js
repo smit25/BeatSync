@@ -19,6 +19,7 @@ var cookies = getCookiesMap(cookie)
 const userId = cookies['userId']
 var device = cookies['deviceId']
 var token = cookies['spotify_token']
+var adminId = cookies['adminId']
 
 // RoomUrl for joinRoom event
 const urlParams = window.location.href
@@ -173,3 +174,13 @@ function makeUL (array) {
   }
   return list
 }
+
+// Hide playback for non-host users
+function hide () {
+  if (!adminId) {
+    document.getElementById('playback').style.display = 'none'
+    document.getElementById('nonAdmin').innerHTML = 'Let the Host Sync the Beat!'
+    document.getElementById('playbackSearch').style.display = 'none'
+  }
+}
+window.onload = hide()

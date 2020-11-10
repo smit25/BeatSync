@@ -42,10 +42,13 @@
 
             <main class="chat-main">
                 <div class="chat-sidebar">
+                  <div id = "playbackSearch">
             <form id = "searchForm">
             <input id = "search" name = "searchList" type ="text" placeholder ="Search your track here" list = "searchItems">
             <button class='btn btn-primary' type="submit" value="Submit">Search</button>
             </form>
+          </div>
+              <h4 id = "nonAdmin"></h4>
             <br>
             <datalist id = "searchItems" name = "searchList"></datalist>
             <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
@@ -58,9 +61,11 @@
                   </div>
                   <br>
                   <!--<a href="index.html" class="btn btn-success">Sync Everybody</a> -->
+                  <div id = "playback">
                   <button class="btn btn-primary" type="button" onclick="playForAll();return false;">Play</button>
                   <button class="btn btn-warning" type="button" onclick="pauseForAll();return false;">Pause</button>
                   <button class="btn btn-danger" type="button" onclick="stopForAll();return false;">Stop</button>
+                </div>
                   <ul id="users"></ul>
                 </div>
             </main>
