@@ -54,6 +54,6 @@ app.use('/', signin)
 app.use('/', signup)
 
 // Run the server
-const host = 3000 || process.send.PORT
+const host = process.env.PORT || 3000
 server.listen(host)
 console.log('Hey server is running')
