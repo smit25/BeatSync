@@ -65,6 +65,7 @@ $("input[name='searchList']").on('input', function (e) {
       console.log('track url: ' + track)
       console.log('trackName: ' + trackName)
       document.getElementById('song-name').innerHTML = trackName
+      // imageUrl
       let imageUrl = songList[selectedId - 1].image
       console.log('imageURL: ' + imageUrl)
     }

@@ -32,13 +32,19 @@ function deviceid () {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-
     success: function (response) {
-      let deviceId = response.devices[0].id
-      console.log('Device id stored ' + deviceId)
-      let now = new Date()
-      now.setTime(now.getTime() + 10 * 3600 * 1000)
-      document.cookie = `deviceId = ${deviceId}; expires=${now.toUTCString()}; path = /`
+      try {
+        let deviceId = response.devices[0].id
+        console.log('Device id stored ' + deviceId)
+        let now = new Date()
+        now.setTime(now.getTime() + 10 * 3600 * 1000)
+        document.cookie = `deviceId = ${deviceId}; expires=${now.toUTCString()}; path = /`
+      } catch (err) {
+        window.alert('Please Open Spotify on Your Web or Device!')
+      }
+    },
+    error: function (response) {
+      window.alert('Please Open Spotify on Your Web or Device!')
     }
   })
 }

@@ -47,7 +47,7 @@ router.post(
         res.cookie('userId', user.id)
         // console.log(user.id)
         console.log('userId in signin stored!')
-        console.log('Hey ' + req.cookies['userId'])
+        // console.log('Hey ' + req.cookies['userId'])
       } else {
         console.log('userId cookie already present!')
       }

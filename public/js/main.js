@@ -149,7 +149,7 @@ socket.on('roomUsers', ({ room, users }) => {
   console.log(room)
   console.log(users)
   outputRoomName(room)
-  outputUsers(room)
+  outputUsers(users)
 })
 // Add room name to our page
 function outputRoomName (room) {
@@ -158,5 +158,18 @@ function outputRoomName (room) {
 
 // Add users to our page
 function outputUsers (users) {
-  // console.log('users here' + users[0])
+  var userDiv = document.getElementById('userList')
+  userDiv.appendChild(makeUL(users))
+}
+
+function makeUL (array) {
+  var list = document.createElement('ul')
+  console.log(array.length)
+  for (var i = 0; i < array.length; i++) {
+    // Create the list item:
+    var item = document.createElement('li')
+    item.appendChild(document.createTextNode(array[i].username))
+    list.appendChild(item)
+  }
+  return list
 }
