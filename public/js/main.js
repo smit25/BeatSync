@@ -77,6 +77,7 @@ const response = await fetch(url, {
   headers: {
     'Authorization': 'Bearer ' + token,
     'Accept': 'application/json',
+    'mode': 'cors',
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
