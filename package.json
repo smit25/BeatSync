@@ -4,8 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js"
+    "start": "node app.js"
   },
   "engines": {
     "node": "12.4.0"
@@ -14,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/smit25/BeatSync.git"
   },
-  "author": "Smit. Dibyanshu, Saloni",
+  "author": "Smit, Dibyanshu, Saloni",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/smit25/BeatSync/issues"
