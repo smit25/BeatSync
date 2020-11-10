@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser')
 
 var client_id = 'f6e2e07a48b742278079ce02f7f8df4f' // Your client id
 var client_secret = '37175be48eb748c49b0c9c1f8e4c8d08' // Your secret
-var redirect_uri = 'http://localhost:3000/callback' // Your redirect uri
+var redirect_uri = 'https://beat-sync.herokuapp.com//callback' // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
