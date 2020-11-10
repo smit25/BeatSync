@@ -70,9 +70,9 @@ function resume () {
   })
 }
 
-function play(songUrl){
+async function play(songUrl){
 var url = `https:/api.spotify.com/v1/me/player/play?device_id=${device}`
-const response = await fetch('url', {
+const response = await fetch(url, {
   method: 'PUT',
   headers: {
     'Authorization': 'Bearer ' + token,
@@ -84,7 +84,7 @@ const response = await fetch('url', {
     'position_ms': 0
   })
 });
-console.log(response)
+console.log(response.json)
 }
 
 // Pause a song in spotify
