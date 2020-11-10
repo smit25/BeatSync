@@ -39,7 +39,8 @@ function play (songUrl) {
     type: 'PUT',
     headers: {
       'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept' : 'application/json'
     },
     data: JSON.stringify({
       'uris': [songUrl],
