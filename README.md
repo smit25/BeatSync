@@ -8,10 +8,11 @@
 BeatSync is a cross web collaborative platform that enables users to host a spotify party and listen to the every beat in perfect synchronization.
 Any user can sign up, create a room, invite fellow participants using the unique room key and seal the deal!
 
-_Note: Since this application is in its alpha stage, user require spotify premium to have access to playbck control._ 
+_Note: Since this application is in its alpha stage, user require spotify premium to have access to playback control._ 
 
 ## Installation
 Clone the repo and install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
 Download the dependencies on your pc by running the following command:
 ```bash
 npm install
