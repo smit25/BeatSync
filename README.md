@@ -1,10 +1,13 @@
 # BeatSync
-![version](https://img.shields.io/badge/version-1.2.0-brightgreen) ![node](https://img.shields.io/badge/node-12.4.0-blueviolet)
-BeatSync is a collaborative web application which allows to listen to music together in Sync.
+![version](https://img.shields.io/badge/version-1.2.0-brightgreen) 
+![node](https://img.shields.io/badge/node-12.4.0-blueviolet)
+
+**BeatSync** is a collaborative web application which allows to listen to music together in Sync.
 
 ## Description
 BeatSync is a cross web collaborative platform that enables users to host a spotify party and listen to the every beat in perfect synchronization.
 Any user can sign up, create a room, invite fellow participants using the unique room key and seal the deal!
+
 _Note: Since this application is in its alpha stage, user require spotify premium to have access to playbck control._ 
 
 ## Installation
@@ -68,5 +71,7 @@ For any queries, feel free to contact at smitu3435@gmail.com
 
 ## Credits
 Smit Patel
+
 Dibyanshu Pranjal
+
 Saloni Sawarkar
